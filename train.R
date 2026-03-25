@@ -27,6 +27,7 @@ sba <- sba %>% mutate(
   Late90s = as.integer(ApprovalFY >= 1997 & ApprovalFY <= 2000),
   ApprovalFY2 = ApprovalFY^2,
   ApprovalFY3 = ApprovalFY^3,
+  DisbMonth = factor(format(as.Date(DisbursementDate, format="%d-%b-%y"), "%m")),
   TermBucket = cut(Term, breaks = c(0, 60, 84, 120, 240, 360, Inf),
                    labels = c("0-5yr", "5-7yr", "7-10yr", "10-20yr", "20-30yr", "30yr+"),
                    include.lowest = TRUE)
@@ -50,7 +51,8 @@ mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + IsRevLine + UrbanRural_f + NoEmp 
               CreditBoom:SBA_Portion + PostGFC:TermBucket +
               NAICS3 + SameBankState + Recession:SBA_Portion +
               Pre1989 + Peak90s + Late90s + ApprovalFY2 + ApprovalFY3 +
-              HasJobs:TermBucket + HasJobs:GFC,
+              HasJobs:TermBucket + HasJobs:GFC +
+              DisbMonth,
             data = sba_train, family = "binomial")
 
 # Predictions and evaluation (do not modify evaluate function — it lives in prepare.R)
