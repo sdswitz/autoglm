@@ -23,6 +23,15 @@ sba_test$RealEstate <- as.integer(sba_test$NAICS_sector %in% c("53"))
 sba_train$LongTerm <- as.integer(sba_train$Term > 240)
 sba_test$LongTerm <- as.integer(sba_test$Term > 240)
 
+# Bucket Term into common loan length categories
+term_bucket <- function(t) {
+  cut(t, breaks = c(0, 60, 84, 120, 240, 360, Inf),
+      labels = c("0-5yr", "5-7yr", "7-10yr", "10-20yr", "20-30yr", "30yr+"),
+      include.lowest = TRUE)
+}
+sba_train$TermBucket <- term_bucket(sba_train$Term)
+sba_test$TermBucket <- term_bucket(sba_test$Term)
+
 mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + RevLineCr + UrbanRural_f + NoEmp +
               log(DisbursementGross_num) + SBA_Portion + IsFranchise + Term +
               NAICS_sector + State + Recession + ApprovalFY + Term:SBA_Portion +
@@ -30,7 +39,8 @@ mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + RevLineCr + UrbanRural_f + NoEmp 
               log(DisbursementGross_num):SBA_Portion +
               GFC:Term + BankState + RealEstate:GFC + LongTerm +
               NewExist_f:GFC + LowDoc:GFC + RevLineCr:Term +
-              log(SBA_Appv_num + 1) + LongTerm:GFC + UrbanRural_f:GFC,
+              log(SBA_Appv_num + 1) + LongTerm:GFC + UrbanRural_f:GFC +
+              TermBucket,
             data = sba_train, family = "binomial")
 # summary(mod1)
 
