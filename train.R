@@ -49,7 +49,8 @@ mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + IsRevLine + UrbanRural_f + NoEmp 
               PostGFC + CreditBoom +
               CreditBoom:SBA_Portion + PostGFC:TermBucket +
               NAICS3 + SameBankState + Recession:SBA_Portion +
-              Pre1989 + Peak90s + Late90s + ApprovalFY2 + ApprovalFY3,
+              Pre1989 + Peak90s + Late90s + ApprovalFY2 + ApprovalFY3 +
+              HasJobs:TermBucket + HasJobs:GFC,
             data = sba_train, family = "binomial")
 
 # Predictions and evaluation (do not modify evaluate function — it lives in prepare.R)
