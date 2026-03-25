@@ -9,14 +9,17 @@ sba_test <- read.csv("sba_test.csv")
 # Feature engineering
 sba_train$GFC <- as.integer(sba_train$ApprovalFY >= 2007 & sba_train$ApprovalFY <= 2009)
 sba_test$GFC <- as.integer(sba_test$ApprovalFY >= 2007 & sba_test$ApprovalFY <= 2009)
+sba_train$Recession <- as.integer(sba_train$ApprovalFY %in% c(2001, 2002, 2007, 2008, 2009))
+sba_test$Recession <- as.integer(sba_test$ApprovalFY %in% c(2001, 2002, 2007, 2008, 2009))
 
 sba_train$TotalJobs <- sba_train$CreateJob + sba_train$RetainedJob
 sba_test$TotalJobs <- sba_test$CreateJob + sba_test$RetainedJob
 
 mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + RevLineCr + UrbanRural_f + NoEmp +
               log(DisbursementGross_num) + SBA_Portion + IsFranchise + Term +
-              NAICS_sector + State + GFC + Term:SBA_Portion +
-              TotalJobs + log(GrAppv_num + 1),
+              NAICS_sector + State + Recession + ApprovalFY + Term:SBA_Portion +
+              TotalJobs + log(GrAppv_num + 1) +
+              log(DisbursementGross_num):SBA_Portion,
             data = sba_train, family = "binomial")
 # summary(mod1)
 
