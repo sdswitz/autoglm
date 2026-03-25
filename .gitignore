@@ -1,0 +1,5 @@
+*.csv
+*.Rout
+.Rhistory
+.RData
+.Rproj.user/
