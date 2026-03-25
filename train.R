@@ -21,6 +21,15 @@ sba_test$CreditBoom <- as.integer(sba_test$ApprovalFY >= 2004 & sba_test$Approva
 sba_train$TotalJobs <- sba_train$CreateJob + sba_train$RetainedJob
 sba_test$TotalJobs <- sba_test$CreateJob + sba_test$RetainedJob
 
+# 3-digit NAICS subsector for finer industry granularity
+sba_train$NAICS3 <- substr(as.character(sba_train$NAICS), 1, 3)
+sba_test$NAICS3 <- substr(as.character(sba_test$NAICS), 1, 3)
+# Only keep subsectors present in training to avoid factor level issues
+naics3_levels <- unique(sba_train$NAICS3)
+sba_test$NAICS3[!(sba_test$NAICS3 %in% naics3_levels)] <- "000"
+sba_train$NAICS3 <- factor(sba_train$NAICS3)
+sba_test$NAICS3 <- factor(sba_test$NAICS3, levels = levels(sba_train$NAICS3))
+
 # Additional features
 sba_train$RealEstate <- as.integer(sba_train$NAICS_sector %in% c("53"))
 sba_test$RealEstate <- as.integer(sba_test$NAICS_sector %in% c("53"))
@@ -46,7 +55,8 @@ mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + RevLineCr + UrbanRural_f + NoEmp 
               log(SBA_Appv_num + 1) + LongTerm:GFC + UrbanRural_f:GFC +
               TermBucket + TermBucket:GFC + TermBucket:SBA_Portion +
               PostGFC + CreditBoom +
-              CreditBoom:SBA_Portion + PostGFC:TermBucket,
+              CreditBoom:SBA_Portion + PostGFC:TermBucket +
+              NAICS3,
             data = sba_train, family = "binomial")
 # summary(mod1)
 
