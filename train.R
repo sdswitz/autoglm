@@ -63,7 +63,8 @@ mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + IsRevLine + UrbanRural_f + NoEmp 
               HighSBA + HighSBA:GFC +
               Term2 + Term3 + Term4 +
               Term2:GFC + Term3:GFC +
-              Recession:TermBucket,
+              Recession:TermBucket +
+              Pre1989:TermBucket,
             data = sba_train, family = "binomial")
 
 # Predictions and evaluation (do not modify evaluate function — it lives in prepare.R)
