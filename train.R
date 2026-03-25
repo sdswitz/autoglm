@@ -10,9 +10,13 @@ sba_test <- read.csv("sba_test.csv")
 sba_train$GFC <- as.integer(sba_train$ApprovalFY >= 2007 & sba_train$ApprovalFY <= 2009)
 sba_test$GFC <- as.integer(sba_test$ApprovalFY >= 2007 & sba_test$ApprovalFY <= 2009)
 
+sba_train$TotalJobs <- sba_train$CreateJob + sba_train$RetainedJob
+sba_test$TotalJobs <- sba_test$CreateJob + sba_test$RetainedJob
+
 mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + RevLineCr + UrbanRural_f + NoEmp +
               log(DisbursementGross_num) + SBA_Portion + IsFranchise + Term +
-              NAICS_sector + State + GFC + Term:SBA_Portion,
+              NAICS_sector + State + GFC + Term:SBA_Portion +
+              TotalJobs + log(GrAppv_num + 1),
             data = sba_train, family = "binomial")
 # summary(mod1)
 
