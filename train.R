@@ -35,6 +35,8 @@ sba_train$RealEstate <- as.integer(sba_train$NAICS_sector %in% c("53"))
 sba_test$RealEstate <- as.integer(sba_test$NAICS_sector %in% c("53"))
 sba_train$LongTerm <- as.integer(sba_train$Term > 240)
 sba_test$LongTerm <- as.integer(sba_test$Term > 240)
+sba_train$SameBankState <- as.integer(sba_train$State == sba_train$BankState)
+sba_test$SameBankState <- as.integer(sba_test$State == sba_test$BankState)
 
 # Bucket Term into common loan length categories
 term_bucket <- function(t) {
@@ -56,7 +58,7 @@ mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + RevLineCr + UrbanRural_f + NoEmp 
               TermBucket + TermBucket:GFC + TermBucket:SBA_Portion +
               PostGFC + CreditBoom +
               CreditBoom:SBA_Portion + PostGFC:TermBucket +
-              NAICS3,
+              NAICS3 + SameBankState + Recession:SBA_Portion,
             data = sba_train, family = "binomial")
 # summary(mod1)
 
