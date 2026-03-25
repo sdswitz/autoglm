@@ -28,6 +28,7 @@ sba <- sba %>% mutate(
   ApprovalFY2 = ApprovalFY^2,
   ApprovalFY3 = ApprovalFY^3,
   LoanSizeRatio = GrAppv_num / pmax(DisbursementGross_num, 1),
+  HighSBA = as.integer(SBA_Portion > 0.75),
   DisbMonth = factor(format(as.Date(DisbursementDate, format="%d-%b-%y"), "%m")),
   TermBucket = cut(Term, breaks = c(0, 60, 84, 120, 240, 360, Inf),
                    labels = c("0-5yr", "5-7yr", "7-10yr", "10-20yr", "20-30yr", "30yr+"),
@@ -54,7 +55,8 @@ mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + IsRevLine + UrbanRural_f + NoEmp 
               Pre1989 + Peak90s + Late90s + ApprovalFY2 + ApprovalFY3 +
               HasJobs:TermBucket + HasJobs:GFC +
               DisbMonth + NewExist_f:TermBucket + LoanSizeRatio +
-              LoanSizeRatio:GFC,
+              LoanSizeRatio:GFC +
+              HighSBA + HighSBA:GFC,
             data = sba_train, family = "binomial")
 
 # Predictions and evaluation (do not modify evaluate function — it lives in prepare.R)
