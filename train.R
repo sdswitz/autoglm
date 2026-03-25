@@ -21,7 +21,8 @@ mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + RevLineCr + UrbanRural_f + NoEmp 
               log(DisbursementGross_num) + SBA_Portion + IsFranchise + Term +
               NAICS_sector + State + Recession + ApprovalFY + Term:SBA_Portion +
               TotalJobs + log(GrAppv_num + 1) +
-              log(DisbursementGross_num):SBA_Portion,
+              log(DisbursementGross_num):SBA_Portion +
+              GFC:Term + BankState,
             data = sba_train, family = "binomial")
 # summary(mod1)
 
