@@ -30,8 +30,8 @@ sba <- sba %>% mutate(
   LoanSizeRatio = GrAppv_num / pmax(DisbursementGross_num, 1),
   HighSBA = as.integer(SBA_Portion > 0.75),
   DisbMonth = factor(format(as.Date(DisbursementDate, format="%d-%b-%y"), "%m")),
-  TermBucket = cut(Term, breaks = c(0, 12, 36, 60, 84, 120, 240, 360, Inf),
-                   labels = c("0-1yr", "1-3yr", "3-5yr", "5-7yr", "7-10yr", "10-20yr", "20-30yr", "30yr+"),
+  TermBucket = cut(Term, breaks = c(0, 12, 24, 36, 60, 84, 120, 240, 360, Inf),
+                   labels = c("0-1yr", "1-2yr", "2-3yr", "3-5yr", "5-7yr", "7-10yr", "10-20yr", "20-30yr", "30yr+"),
                    include.lowest = TRUE)
 )
 
