@@ -16,6 +16,7 @@ sba <- sba %>% mutate(
   PostGFC = as.integer(ApprovalFY >= 2010),
   CreditBoom = as.integer(ApprovalFY >= 2004 & ApprovalFY <= 2006),
   TotalJobs = CreateJob + RetainedJob,
+  HasJobs = as.integer(CreateJob + RetainedJob > 0),
   NAICS3 = factor(substr(as.character(NAICS), 1, 3)),
   RealEstate = as.integer(NAICS_sector %in% c("53")),
   LongTerm = as.integer(Term > 240),
@@ -36,7 +37,7 @@ sba_test <- sba[-idx, ]
 mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + RevLineCr + UrbanRural_f + NoEmp +
               log(DisbursementGross_num) + SBA_Portion + IsFranchise + Term +
               State + Recession + ApprovalFY + Term:SBA_Portion +
-              TotalJobs + log(GrAppv_num + 1) +
+              HasJobs + log(GrAppv_num + 1) +
               log(DisbursementGross_num):SBA_Portion +
               GFC:Term + BankState + RealEstate:GFC + LongTerm +
               NewExist_f:GFC + LowDoc:GFC + RevLineCr:Term +
