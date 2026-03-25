@@ -17,12 +17,18 @@ sba_test$Recession <- as.integer(sba_test$ApprovalFY %in% c(2001, 2002, 2007, 20
 sba_train$TotalJobs <- sba_train$CreateJob + sba_train$RetainedJob
 sba_test$TotalJobs <- sba_test$CreateJob + sba_test$RetainedJob
 
+# Additional features
+sba_train$RealEstate <- as.integer(sba_train$NAICS_sector %in% c("53"))
+sba_test$RealEstate <- as.integer(sba_test$NAICS_sector %in% c("53"))
+sba_train$LongTerm <- as.integer(sba_train$Term > 240)
+sba_test$LongTerm <- as.integer(sba_test$Term > 240)
+
 mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + RevLineCr + UrbanRural_f + NoEmp +
               log(DisbursementGross_num) + SBA_Portion + IsFranchise + Term +
               NAICS_sector + State + Recession + ApprovalFY + Term:SBA_Portion +
               TotalJobs + log(GrAppv_num + 1) +
               log(DisbursementGross_num):SBA_Portion +
-              GFC:Term + BankState,
+              GFC:Term + BankState + RealEstate:GFC + LongTerm,
             data = sba_train, family = "binomial")
 # summary(mod1)
 
