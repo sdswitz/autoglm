@@ -40,7 +40,7 @@ mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + RevLineCr + UrbanRural_f + NoEmp 
               GFC:Term + BankState + RealEstate:GFC + LongTerm +
               NewExist_f:GFC + LowDoc:GFC + RevLineCr:Term +
               log(SBA_Appv_num + 1) + LongTerm:GFC + UrbanRural_f:GFC +
-              TermBucket,
+              TermBucket + TermBucket:GFC + TermBucket:SBA_Portion,
             data = sba_train, family = "binomial")
 # summary(mod1)
 
