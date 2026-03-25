@@ -27,6 +27,7 @@ sba <- sba %>% mutate(
   Late90s = as.integer(ApprovalFY >= 1997 & ApprovalFY <= 2000),
   ApprovalFY2 = ApprovalFY^2,
   ApprovalFY3 = ApprovalFY^3,
+  ApprovalFY4 = ApprovalFY^4,
   LoanSizeRatio = GrAppv_num / pmax(DisbursementGross_num, 1),
   Term2 = Term^2,
   Term3 = Term^3,
@@ -55,7 +56,7 @@ mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + IsRevLine + UrbanRural_f + NoEmp 
               PostGFC + CreditBoom +
               CreditBoom:SBA_Portion + PostGFC:TermBucket +
               NAICS3 + SameBankState + Recession:SBA_Portion +
-              Pre1989 + Peak90s + Late90s + ApprovalFY2 + ApprovalFY3 +
+              Pre1989 + Peak90s + Late90s + ApprovalFY2 + ApprovalFY3 + ApprovalFY4 +
               HasJobs:TermBucket + HasJobs:GFC +
               DisbMonth + NewExist_f:TermBucket + LoanSizeRatio +
               LoanSizeRatio:GFC +
