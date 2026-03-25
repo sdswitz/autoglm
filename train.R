@@ -47,7 +47,7 @@ sba_test$TermBucket <- term_bucket(sba_test$Term)
 
 mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + RevLineCr + UrbanRural_f + NoEmp +
               log(DisbursementGross_num) + SBA_Portion + IsFranchise + Term +
-              NAICS_sector + State + Recession + ApprovalFY + Term:SBA_Portion +
+              State + Recession + ApprovalFY + Term:SBA_Portion +
               TotalJobs + log(GrAppv_num + 1) +
               log(DisbursementGross_num):SBA_Portion +
               GFC:Term + BankState + RealEstate:GFC + LongTerm +
