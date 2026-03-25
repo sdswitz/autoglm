@@ -13,6 +13,10 @@ sba_train$GFC <- as.integer(sba_train$ApprovalFY >= 2007 & sba_train$ApprovalFY 
 sba_test$GFC <- as.integer(sba_test$ApprovalFY >= 2007 & sba_test$ApprovalFY <= 2009)
 sba_train$Recession <- as.integer(sba_train$ApprovalFY %in% c(2001, 2002, 2007, 2008, 2009))
 sba_test$Recession <- as.integer(sba_test$ApprovalFY %in% c(2001, 2002, 2007, 2008, 2009))
+sba_train$PostGFC <- as.integer(sba_train$ApprovalFY >= 2010)
+sba_test$PostGFC <- as.integer(sba_test$ApprovalFY >= 2010)
+sba_train$CreditBoom <- as.integer(sba_train$ApprovalFY >= 2004 & sba_train$ApprovalFY <= 2006)
+sba_test$CreditBoom <- as.integer(sba_test$ApprovalFY >= 2004 & sba_test$ApprovalFY <= 2006)
 
 sba_train$TotalJobs <- sba_train$CreateJob + sba_train$RetainedJob
 sba_test$TotalJobs <- sba_test$CreateJob + sba_test$RetainedJob
@@ -40,7 +44,8 @@ mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + RevLineCr + UrbanRural_f + NoEmp 
               GFC:Term + BankState + RealEstate:GFC + LongTerm +
               NewExist_f:GFC + LowDoc:GFC + RevLineCr:Term +
               log(SBA_Appv_num + 1) + LongTerm:GFC + UrbanRural_f:GFC +
-              TermBucket + TermBucket:GFC + TermBucket:SBA_Portion,
+              TermBucket + TermBucket:GFC + TermBucket:SBA_Portion +
+              PostGFC + CreditBoom,
             data = sba_train, family = "binomial")
 # summary(mod1)
 
