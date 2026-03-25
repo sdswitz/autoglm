@@ -6,12 +6,13 @@ sba_train <- read.csv("sba_train.csv")
 sba_test <- read.csv("sba_test.csv")
 
 # The baseline model I used in my miderm submission
-sba_train$ApprovalFY <- as.factor(sba_train$ApprovalFY)
-sba_test$ApprovalFY <- as.factor(sba_test$ApprovalFY)
+# Feature engineering
+sba_train$GFC <- as.integer(sba_train$ApprovalFY >= 2007 & sba_train$ApprovalFY <= 2009)
+sba_test$GFC <- as.integer(sba_test$ApprovalFY >= 2007 & sba_test$ApprovalFY <= 2009)
 
 mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + RevLineCr + UrbanRural_f + NoEmp +
               log(DisbursementGross_num) + SBA_Portion + IsFranchise + Term +
-              NAICS_sector + State + ApprovalFY + Term:SBA_Portion,
+              NAICS_sector + State + GFC + Term:SBA_Portion,
             data = sba_train, family = "binomial")
 # summary(mod1)
 
