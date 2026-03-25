@@ -7,6 +7,8 @@ sba_test <- read.csv("sba_test.csv")
 
 # The baseline model I used in my miderm submission
 # Feature engineering
+sba_train$ApprovalFY <- as.numeric(as.character(sba_train$ApprovalFY))
+sba_test$ApprovalFY <- as.numeric(as.character(sba_test$ApprovalFY))
 sba_train$GFC <- as.integer(sba_train$ApprovalFY >= 2007 & sba_train$ApprovalFY <= 2009)
 sba_test$GFC <- as.integer(sba_test$ApprovalFY >= 2007 & sba_test$ApprovalFY <= 2009)
 sba_train$Recession <- as.integer(sba_train$ApprovalFY %in% c(2001, 2002, 2007, 2008, 2009))
