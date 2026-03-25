@@ -28,7 +28,8 @@ mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + RevLineCr + UrbanRural_f + NoEmp 
               NAICS_sector + State + Recession + ApprovalFY + Term:SBA_Portion +
               TotalJobs + log(GrAppv_num + 1) +
               log(DisbursementGross_num):SBA_Portion +
-              GFC:Term + BankState + RealEstate:GFC + LongTerm,
+              GFC:Term + BankState + RealEstate:GFC + LongTerm +
+              NewExist_f:GFC + LowDoc:GFC + RevLineCr:Term,
             data = sba_train, family = "binomial")
 # summary(mod1)
 
