@@ -25,13 +25,16 @@ Each experiment runs on the CPU. The dataset is limited to 50k rows so each call
 **What you CAN do:**
 - Modify `train.R` — this is the only file you edit. Everything is fair game: model architecture, model size, creating new variables etc. For example, there are no external economic factors in the baseline model, but perhaps including something to account for the Great Financial Crisis in ~2008-2009 would be useful.
 
+TODO:
+- add guide on temporary interactions/polynomials in glm() call
+- this is currently like a basic tree model where it makes greedy choices to approve the model, how can i create the analogue to growing/pruning or random forests?
+
 **What you CANNOT do:**
 - Modify `prepare.R`. It is read-only. It contains the fixed data loading and train/test split.
 - Install new R packages or add dependencies. You can only use what's already loaded in `train.R`.
 - Modify the evaluation function. The `evaluate()` function in `prepare.R` is the ground truth metric.
 
 **The goal is simple: maximize accuracy.** Other metrics like AUC and no information rate can be used to assess how the model is doing from one iteration to the next, but the north star is to always try to push accuracy higher.
-
 
 **Simplicity criterion**: All else being equal, simpler is better. A small improvement that adds ugly complexity is not worth it. Conversely, removing something and getting equal or better results is a great outcome — that's a simplification win. When evaluating whether to keep a change, weigh the complexity cost against the improvement magnitude. A 0.001 accuracy improvement that adds 20 lines of hacky code? Probably not worth it. A 0.001 accuracy improvement from deleting code? Definitely keep.
 

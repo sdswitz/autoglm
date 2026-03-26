@@ -1,0 +1,128 @@
+commit	accuracy	auc	status	description
+8d3c9b2	0.8558	0.8448	keep	baseline
+3aafdbd	0.8632	0.8511	keep	add GFC indicator and Term:SBA_Portion interaction
+178db07	0.8641	0.8497	keep	add TotalJobs and log(GrAppv_num) predictors
+48b1d8b	0.8659	0.8464	keep	add Recession indicator and ApprovalFY numeric trend and DisbursementGross:SBA_Portion interaction
+ae4f844	0.8721	0.8535	keep	add GFC:Term interaction and BankState predictor
+df752e8	0.8735	0.8589	keep	add RealEstate:GFC interaction and LongTerm indicator
+51ee559	0.8745	0.8622	keep	add NewExist_f:GFC LowDoc:GFC RevLineCr:Term interactions
+9ced80e	0.8753	0.8676	keep	add log(SBA_Appv_num) LongTerm:GFC UrbanRural_f:GFC interactions
+ff7f100	0.8755	0.8805	keep	add TermBucket (common loan length categories 5/7/10/20/30yr)
+9cb3930	0.8790	0.8818	keep	add TermBucket:GFC and TermBucket:SBA_Portion interactions
+7ebe77f	0.8681	0.8401	discard	replace continuous Term with TermBucket — Term still needed as continuous
+b76c89f	0.8788	0.8815	discard	add TermBucket:NewExist_f — marginal regression
+5965e4c	0.8775	0.8801	discard	remove Recession and TotalJobs — both contributing
+3a7ba04	0.8790	0.8815	discard	add IsFranchise:LowDoc and NoEmp:NAICS_sector — tied so discarding per simplicity
+123e75e	0.8807	0.8876	keep	add PostGFC (2010+) and CreditBoom (2004-2006) era indicators
+bcad822	0.8817	0.8884	keep	add CreditBoom:SBA_Portion and PostGFC:TermBucket interactions
+ed5ba0c	0.8809	0.8882	discard	log NoEmp and add SBA_Portion^2 — slight regression
+e0b0e46	0.8832	0.8908	keep	add 3-digit NAICS subsector (NAICS3) for finer industry granularity
+812c06c	0.8833	0.8908	keep	remove NAICS_sector (redundant with NAICS3) — simplification win
+9f60e8a	0.8711	0.7029	discard	NAICS3:GFC — too sparse causes separation
+f864a5f	0.8867	0.8929	keep	refactor feature engineering; add SameBankState and Recession:SBA_Portion
+-------	------	------	----	--- instructions updated: added eda.md and eda.R workflow ---
+85e7e99	0.8864	0.8903	discard	drop collinear log(SBA_Appv_num) and log-transform NoEmp — tiny regression
+8dbf5bf	0.8943	0.9032	keep	EDA: add Pre1989 and Peak90s era indicators — big jump
+5fbb8ac	0.8944	0.9038	keep	EDA: add Late90s era indicator (1997-2000)
+a22cb84	0.8937	0.9030	discard	add CreditBoom:TermBucket — already captured by other terms
+e8347a5	0.8942	0.9030	discard	add Pre1989:TermBucket and Peak90s:SBA_Portion interactions
+47eaa48	0.8948	0.9031	keep	EDA: replace TotalJobs with HasJobs binary (cleaner signal)
+c0983fe	0.8954	0.9037	keep	add ApprovalFY^2 quadratic time trend
+fae82b5	0.8956	0.9060	keep	add ApprovalFY^3 cubic term
+caddbc7	0.8963	0.9053	keep	EDA: replace messy RevLineCr with clean IsRevLine binary
+40f1795	0.8962	0.9052	discard	replace LowDoc with IsLowDoc binary — messy levels carry info
+a8366ac	0.8960	0.9053	discard	add SameBankState:GFC — already captured by other terms
+4b2aeab	0.8963	0.9056	discard	add NoEmpBin categorical — tied so discarding per simplicity
+bec4034	0.8986	0.9058	keep	add HasJobs:TermBucket and HasJobs:GFC interactions
+6b18196	0.8983	0.9071	discard	add HasJobs:CreditBoom and SameBankState:TermBucket
+710720d	0.8967	0.9085	discard	add Term^2 and log(DisbursementGross)^2 polynomials
+14bed8d	0.8948	0.8959	discard	2-model ensemble — simpler model dragged down predictions
+6e7a8d6	0.8978	0.9059	discard	add UrbanRural_f:TermBucket and Recession:TermBucket
+5738181	0.8990	0.9058	keep	add DisbMonth (disbursement month) as factor
+c7caca4	0.8988	0.9060	discard	add ApprovalLag — no improvement
+14b8997	0.9001	0.9056	keep	add NewExist_f:TermBucket — broke 0.90!
+cfeba15	0.8995	0.9061	discard	add LowDoc:TermBucket — too sparse
+aa75a85	0.8996	0.9061	discard	add IsRevLine:TermBucket
+01f723f	0.8995	0.9063	discard	add NewExist_f:SBA_Portion and NewExist_f:log(DisbursementGross_num)
+f6d60dd	0.8990	0.9056	discard	remove RealEstate:GFC and UrbanRural_f:GFC — both contributing
+6855ab0	0.8995	0.9055	discard	add Construction:GFC and HighRiskSector:CreditBoom
+5ddc497	0.8991	0.9058	discard	add DisbMonth:GFC
+9082ebd	0.8993	0.9084	discard	add GFC:SBA_Portion and Pre1989:SBA_Portion
+983dd31	0.8991	0.9070	discard	replace ApprovalFY+FY2+FY3 with poly(4) — overfits
+af0cacf	0.8999	0.9055	discard	add IsFranchise:GFC — marginally worse
+250637a	0.8996	0.9056	discard	add Early2000s era indicator
+c022bcd	0.8482	0.7913	crash	NewExist_f:CreditBoom/PostGFC + maxit=50 — convergence failure
+49f2a76	0.8898	0.7654	discard	replace Recession with GFC:SBA_Portion — Recession is critical
+bac9cda	0.9008	0.9076	keep	add LoanSizeRatio (GrAppv/DisbursementGross) — new best!
+8cc5354	0.9010	0.9077	keep	add LoanSizeRatio:GFC interaction
+72ae94f	0.9008	0.9082	discard	add LoanSizeRatio:TermBucket
+2015640	0.9010	0.9077	discard	add SBAGuaranteeRatio (SBA_Appv/GrAppv) — tied
+96d80ad	0.9012	0.9077	keep	add HighSBA (SBA_Portion > 0.75) indicator and GFC interaction
+7ccd5d4	0.9010	0.9082	discard	add LargeEmp (NoEmp > 10) indicator and GFC interaction
+4591d41	0.9003	0.9078	discard	add HighSBA:TermBucket interaction
+c5c2c69	0.0000	0.0000	crash	add DisbQuarter — NA dates create new factor levels in test
+b7549ad	0.9006	0.9090	discard	add SameBankState:TermBucket interaction
+3cd0363	0.9011	0.9077	discard	add SBA_Portion^2 quadratic term — tied
+b67b849	0.9049	0.9159	keep	split 0-5yr TermBucket into 0-3yr and 3-5yr — big jump\!
+5904069	0.9106	0.9232	keep	add 0-1yr TermBucket — massive jump\!
+8df7983	0.9120	0.9252	keep	split 1-3yr into 1-2yr and 2-3yr TermBuckets
+8deed6b	0.9118	0.9255	discard	split 0-1yr into 0-6m and 6-12m — too sparse
+7c23b36	0.9158	0.9357	keep	split 10-20yr into 10-15yr and 15-20yr — another big jump\!
+6ab2278	0.9155	0.9346	discard	split 20-30yr into 20-25yr/25-30yr — slight regression
+307bc7a	0.9191	0.9377	keep	split 3-5yr into 3-4yr and 4-5yr — keeps climbing\!
+9f4b9ce	0.9193	0.9397	keep	split 5-7yr into 5-6yr and 6-7yr — marginal gain
+d404655	0.9233	0.9405	keep	split 7-10yr into 7-8yr and 8-10yr — big jump\!
+c5c3966	0.9234	0.9415	keep	split 8-10yr into 8-9yr and 9-10yr — marginal gain
+722c087	0.9051	0.9220	discard	remove continuous Term — still needed alongside TermBucket
+8f3c8f8	0.9226	0.9418	discard	add IsFranchise:TermBucket — too sparse with fine buckets
+35eb9a9	0.9288	0.9474	keep	add Term^2 quadratic — big jump\!
+202bbbf	0.9308	0.9506	keep	add Term^3 cubic — keeps improving\!
+532ff9b	0.9317	0.9494	keep	add Term^4 quartic term
+baf6d61	0.9317	0.9519	discard	add Term^5 — tied on accuracy
+96a1733	0.9298	0.9500	discard	add log(DisbursementGross)^2 — regression
+052bb70	0.9313	0.9496	discard	add Term^2:SBA_Portion interaction
+c894f81	0.9319	0.9498	keep	add Term^2:GFC and Term^3:GFC interactions
+879fbb9	0.9319	0.9498	discard	add NoEmp^2 — tied
+a14e460	0.9323	0.9504	keep	add ApprovalFY^4 quartic time trend
+4f055fd	0.9319	0.9504	discard	add ApprovalFY^5 — regression
+6575649	0.9318	0.9503	discard	add NoEmpBucket — regression
+e1564a6	0.9312	0.9506	discard	add SBABucket — regression
+3383c49	0.9322	0.9514	discard	add LoanSize bucket — regression
+9dcf690	0.9325	0.9505	keep	add Recession:TermBucket interaction
+7f0c7d2	0.9309	0.9504	discard	add CreditBoom:TermBucket — too sparse
+5316cf5	0.9330	0.9507	keep	add Pre1989:TermBucket interaction
+4912984	0.9328	0.9502	discard	add Peak90s:TermBucket — regression
+5d975d3	0.9324	0.9506	discard	add Late90s:TermBucket — regression
+08f3416	0.9329	0.9508	discard	add ApprovalFY:Term interaction — regression
+308f808	0.9326	0.9515	discard	add IsRevLine:TermBucket — regression
+b98150c	0.9321	0.9505	discard	add UrbanRural_f:TermBucket — regression
+42dbdd3	0.9326	0.9508	discard	add Term:log(DisbursementGross) — regression
+2ebfce1	0.9329	0.9514	discard	add log(MonthlyPayment) — regression
+c0fce8b	0.9317	0.9513	discard	replace NAICS3 with NAICS2 — NAICS3 is better
+f33ad4b	0.9338	0.9508	keep	add SameBankState:GFC interaction
+e6c2157	0.9328	0.9509	discard	add SameBankState:Recession — regression
+9e53050	0.9322	0.9511	discard	add SameBankState:log(DisbursementGross) — regression
+45658d5	0.9336	0.9508	discard	add PostGFC:SBA_Portion — regression
+6309309	0.9326	0.9508	discard	add GFC:SBA_Portion — regression
+fcd8078	0.9339	0.9508	keep	add ShortTerm (<=36m) with GFC and SBA_Portion interactions
+21a7172	0.9331	0.9508	discard	add NewExist_f:SBA_Portion — regression
+395092a	0.9335	0.9508	discard	add LowDoc:SBA_Portion — regression
+f367756	0.9329	0.9510	discard	add SBA_Portion^2/^3 polynomials — regression
+50f9229	0.9336	0.9508	discard	add log(NoEmp + 1) — regression
+891947e	0.9337	0.9508	discard	add ShortTerm:ApprovalFY — regression
+d3e13f3	0.9339	0.9508	discard	add ShortTerm:NewExist_f — tied
+88278bc	0.9330	0.9508	discard	add HighSBA:NewExist_f — regression
+8ca3c8c	0.8935	0.8560	discard	add NAICS2:GFC — separation/overfitting crash
+bfe8b30	0.9325	0.9508	discard	add Construction/Retail/Food:GFC — regression
+5cd6477	0.9319	0.9510	discard	add EraBucket — redundant with existing era indicators
+cff5ac4	0.9345	0.9525	keep	split 10-15yr into 10-12yr and 12-15yr
+f87b292	0.9342	0.9527	discard	split 15-20yr — too sparse
+6226c31	0.9345	0.9525	discard	add HasBalance — tied
+0b534ac	0.9343	0.9526	discard	add Term^4:GFC — regression
+e3b869a	0.9338	0.9496	discard	add LongTerm:SBA_Portion — regression
+e2adbdf	0.9344	0.9526	discard	add Term^2/^3:Recession — regression
+f652ff7	0.9341	0.9526	discard	add LoanSizeRatio:ShortTerm — regression
+01b3bc9	0.9339	0.9510	discard	remove DisbMonth — still contributing
+6e134e5	0.9339	0.9525	discard	add ApprovalFY^2:Term and ApprovalFY:Term^2 — regression
+99004a9	0.9346	0.9527	keep	add sqrt(Term) and log(Term) transforms — marginal gain
+658426d	0.9329	0.9521	discard	ABLATION: remove CreateJob/RetainedJob deps (HasJobs TotalJobs and interactions) — cost 0.0017 accuracy

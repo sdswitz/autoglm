@@ -1,0 +1,527 @@
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+
+=== Target Distribution ===
+
+    0     1 
+ 8736 41249 
+Default rate: 0.1747724 
+
+=== Numeric Summaries ===
+
+--- Term ---
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    0.0    60.0    84.0   111.1   120.0   505.0 
+
+--- NoEmp ---
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00    2.00    4.00   11.61   10.00 8000.00 
+
+--- CreateJob ---
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+   0.000    0.000    0.000    7.859    1.000 8800.000 
+
+--- RetainedJob ---
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.00    0.00    1.00   10.04    4.00 8800.00 
+
+--- DisbursementGross_num ---
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      0   42000  100000  200212  235600 7853275 
+
+--- GrAppv_num ---
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    500   35000   90000  191840  225000 5000000 
+
+--- SBA_Appv_num ---
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    250   21250   61200  149009  175000 4500000 
+
+--- BalanceGross_num ---
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+     0.0      0.0      0.0     16.6      0.0 827875.0 
+
+--- SBA_Portion ---
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   0.08    0.50    0.75    0.71    0.85    1.00 
+
+--- ApprovalFY ---
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+   1970    1997    2002    2001    2006    2014       1 
+Warning message:
+In summary(as.numeric(as.character(sba[[col]]))) :
+  NAs introduced by coercion
+
+=== Collinearity (numeric predictors) ===
+Warning message:
+There was 1 warning in `mutate()`.
+ℹ In argument: `ApprovalFY = as.numeric(as.character(ApprovalFY))`.
+Caused by warning:
+! NAs introduced by coercion 
+Pairs with |r| > 0.7:
+  CreateJob ~ RetainedJob: 0.998
+  DisbursementGross_num ~ GrAppv_num: 0.973
+  DisbursementGross_num ~ SBA_Appv_num: 0.942
+  GrAppv_num ~ SBA_Appv_num: 0.974
+
+=== Factor Cardinality ===
+  State: 51 levels
+  BankState: 53 levels
+  NAICS_sector: 25 levels
+  NewExist_f: 3 levels
+  UrbanRural_f: 3 levels
+  RevLineCr: 6 levels
+  LowDoc: 8 levels
+  IsFranchise: 2 levels
+  NAICS (full): 1134 levels
+  NAICS3 (3-digit): 103 levels
+
+=== Default Rate by ApprovalFY ===
+Warning message:
+NAs introduced by coercion 
+  1970: paid_rate=0.000  n=2
+  1971: paid_rate=0.000  n=1
+  1973: paid_rate=0.333  n=3
+  1974: paid_rate=0.000  n=2
+  1975: paid_rate=0.000  n=1
+  1976: paid_rate=0.000  n=6
+  1977: paid_rate=0.250  n=4
+  1978: paid_rate=0.000  n=15
+  1979: paid_rate=0.000  n=14
+  1980: paid_rate=0.000  n=27
+  1981: paid_rate=0.448  n=29
+  1982: paid_rate=0.532  n=47
+  1983: paid_rate=0.600  n=100
+  1984: paid_rate=0.581  n=124
+  1985: paid_rate=0.581  n=117
+  1986: paid_rate=0.549  n=122
+  1987: paid_rate=0.563  n=135
+  1988: paid_rate=0.539  n=102
+  1989: paid_rate=0.941  n=744
+  1990: paid_rate=0.960  n=806
+  1991: paid_rate=0.968  n=886
+  1992: paid_rate=0.981  n=1125
+  1993: paid_rate=0.978  n=1292
+  1994: paid_rate=0.979  n=1766
+  1995: paid_rate=0.968  n=2491
+  1996: paid_rate=0.966  n=2249
+  1997: paid_rate=0.945  n=2137
+  1998: paid_rate=0.917  n=2023
+  1999: paid_rate=0.901  n=2094
+  2000: paid_rate=0.887  n=2055
+  2001: paid_rate=0.882  n=2105
+  2002: paid_rate=0.884  n=2537
+  2003: paid_rate=0.842  n=3233
+  2004: paid_rate=0.822  n=3821
+  2005: paid_rate=0.754  n=4270
+  2006: paid_rate=0.643  n=4162
+  2007: paid_rate=0.580  n=4020
+  2008: paid_rate=0.599  n=2272
+  2009: paid_rate=0.813  n=979
+  2010: paid_rate=0.862  n=940
+  2011: paid_rate=0.922  n=665
+  2012: paid_rate=0.968  n=311
+  2013: paid_rate=0.969  n=129
+  2014: paid_rate=1.000  n=21
+
+=== Default Rate by TermBucket ===
+$`0-5yr`
+        mean            n 
+6.150959e-01 1.465300e+04 
+
+$`5-7yr`
+        mean            n 
+8.913256e-01 1.637000e+04 
+
+$`7-10yr`
+       mean           n 
+   0.885031 6941.000000 
+
+$`10-20yr`
+        mean            n 
+   0.9532486 8342.0000000 
+
+$`20-30yr`
+        mean            n 
+   0.9651701 3675.0000000 
+
+$`30yr+`
+mean    n 
+0.75 4.00 
+
+
+=== Default Rate by RevLineCr ===
+[[1]]
+       mean           n 
+  0.9780702 228.0000000 
+
+$```
+mean    n 
+   1    2 
+
+$`0`
+        mean            n 
+8.514234e-01 1.443700e+04 
+
+$N
+        mean            n 
+8.545423e-01 2.323700e+04 
+
+$T
+       mean           n 
+  0.5893491 845.0000000 
+
+$Y
+      mean          n 
+7.4555e-01 1.1236e+04 
+
+
+=== Default Rate by LowDoc ===
+[[1]]
+     mean         n 
+  0.63125 160.00000 
+
+$`0`
+      mean          n 
+ 0.9210526 76.0000000 
+
+$A
+      mean          n 
+ 0.6923077 26.0000000 
+
+$C
+      mean          n 
+ 0.9512195 41.0000000 
+
+$N
+        mean            n 
+8.133493e-01 4.349300e+04 
+
+$R
+     mean         n 
+0.5714286 7.0000000 
+
+$S
+ mean     n 
+ 0.75 32.00 
+
+$Y
+        mean            n 
+   0.9134959 6150.0000000 
+
+
+=== Default Rate by NewExist_f ===
+[[1]]
+      mean          n 
+ 0.9836066 61.0000000 
+
+$Existing
+        mean            n 
+8.288919e-01 3.583700e+04 
+
+$New
+        mean            n 
+8.152197e-01 1.408700e+04 
+
+
+=== NoEmp Distribution (skewness check) ===
+Quantiles:
+  0%  25%  50%  75%  90%  95%  99% 100% 
+   0    2    4   10   24   40   97 8000 
+% zero: 0.006842053 
+
+=== Unused columns worth investigating ===
+PropPaid summary:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   -Inf       1       1    -Inf       1       1 
+% finite: 0.99994 
+% equal to 1: 0.8216665 
+Unique finite values (first 20):
+ [1] -1.299400e+04 -1.173571e+02 -9.177867e-01 -9.153143e-01 -6.794000e-01
+ [6] -6.249594e-01 -5.902674e-01 -5.237000e-01 -4.682006e-01 -4.122971e-01
+[11] -3.660647e-01 -3.292228e-01 -2.661600e-01 -2.015000e-01 -1.845592e-01
+[16] -1.272571e-01 -1.263770e-01 -8.712178e-02 -7.718182e-02 -7.161616e-02
+Default rate for PropPaid < 1 (finite):
+  n=8911, paid_rate=0.032
+Default rate for PropPaid == 1:
+  n=41071, paid_rate=0.997
+
+=== Interaction check: TermBucket x CreditBoom ===
+                0         1
+0-5yr   0.6882228 0.4376900
+5-7yr   0.8898267 0.8945156
+7-10yr  0.8850899 0.8847672
+10-20yr 0.9577833 0.9232928
+20-30yr 0.9703182 0.9238329
+30yr+   0.7500000        NA
+
+=== Interaction check: TermBucket x RevLineCr ===
+                   `         0         N         T         Y
+0-5yr   0.9772727  1 0.6617647 0.6832041 0.3360000 0.5204678
+5-7yr   0.9696970 NA 0.8858581 0.8708174 0.7077922 0.9227426
+7-10yr  1.0000000 NA 0.8879865 0.8780293 0.9424460 0.9818182
+10-20yr 0.9710145 NA 0.9381999 0.9590122 1.0000000 1.0000000
+20-30yr 1.0000000 NA 0.9666119 0.9634877 1.0000000        NA
+30yr+          NA NA        NA 0.7500000        NA        NA
+
+=== RevLineCr detailed ===
+Counts and paid rates by level:
+  '': n=228, paid_rate=0.978
+  '`': n=2, paid_rate=1.000
+  '0': n=14437, paid_rate=0.851
+  'N': n=23237, paid_rate=0.855
+  'T': n=845, paid_rate=0.589
+  'Y': n=11236, paid_rate=0.746
+
+=== LowDoc detailed ===
+  '': n=160, paid_rate=0.631
+  '0': n=76, paid_rate=0.921
+  'A': n=26, paid_rate=0.692
+  'C': n=41, paid_rate=0.951
+  'N': n=43493, paid_rate=0.813
+  'R': n=7, paid_rate=0.571
+  'S': n=32, paid_rate=0.750
+  'Y': n=6150, paid_rate=0.913
+
+=== BalanceGross_num distribution ===
+    0%    25%    50%    75%    90%    99%   100% 
+     0      0      0      0      0      0 827875 
+% zero: 0.99998 
+Default rate for BalanceGross==0: 0.8252241 
+Default rate for BalanceGross>0: 1 
+
+=== DisbursementDate parsing ===
+Sample dates:
+ [1] "1994-04-30" "2006-03-31" "1995-04-30" "2010-10-01" "1999-01-31"
+ [6] "2009-03-31" "1996-04-30" "2001-03-31" "2001-04-30" "2003-05-31"
+
+Disbursement month distribution (paid rate):
+$`1`
+        mean            n 
+   0.8616292 5254.0000000 
+
+$`2`
+        mean            n 
+   0.8024219 3138.0000000 
+
+$`3`
+        mean            n 
+   0.7956811 3612.0000000 
+
+$`4`
+        mean            n 
+   0.8570237 5994.0000000 
+
+$`5`
+        mean            n 
+   0.7907632 3551.0000000 
+
+$`6`
+        mean            n 
+   0.7905386 3509.0000000 
+
+$`7`
+        mean            n 
+   0.8676305 5326.0000000 
+
+$`8`
+        mean            n 
+   0.7900718 3344.0000000 
+
+$`9`
+        mean            n 
+   0.8162504 3483.0000000 
+
+$`10`
+        mean            n 
+   0.8502073 5788.0000000 
+
+$`11`
+        mean            n 
+   0.7918416 3334.0000000 
+
+$`12`
+       mean           n 
+   0.805698 3510.000000 
+
+
+=== HasJobs vs no jobs ===
+HasJobs=0: paid_rate= 0.900157  n= 21654 
+HasJobs=1: paid_rate= 0.7679574  n= 28331 
+
+=== DisbursementGross per employee ===
+$`[0,6e+03]`
+       mean           n 
+   0.786636 9997.000000 
+
+$`(6e+03,1.17e+04]`
+        mean            n 
+8.221434e-01 1.014300e+04 
+
+$`(1.17e+04,2e+04]`
+      mean          n 
+   0.82174 9862.00000 
+
+$`(2e+04,4e+04]`
+        mean            n 
+8.339104e-01 1.010900e+04 
+
+$`(4e+04,3.5e+06]`
+       mean           n 
+   0.862062 9874.000000 
+
+
+=== Interaction check: HasJobs x GFC ===
+          0         1
+0 0.9039400 0.6606607
+1 0.8176039 0.6148746
+
+=== Interaction check: SameBankState x GFC ===
+          0         1
+0 0.7939499 0.5398230
+1 0.9147251 0.7437296
+
+=== Interaction check: IsRevLine x GFC ===
+          0         1
+0 0.8742801 0.6348033
+1 0.8031863 0.5926528
+
+=== Interaction check: IsFranchise x TermBucket ===
+        0-5yr     5-7yr    7-10yr   10-20yr   20-30yr 30yr+
+No  0.6158507 0.8911717 0.8870647 0.9526765 0.9642032  0.75
+Yes 0.5917031 0.8943396 0.8715697 0.9605263 0.9810427    NA
+
+=== NoEmp binned default rates ===
+$`0`
+       mean           n 
+  0.7719298 342.0000000 
+
+$`1-2`
+        mean            n 
+7.862266e-01 1.645200e+04 
+
+$`3-5`
+        mean            n 
+7.994693e-01 1.243700e+04 
+
+$`6-10`
+        mean            n 
+   0.8354909 8729.0000000 
+
+$`11-25`
+        mean            n 
+   0.8903624 7616.0000000 
+
+$`26-50`
+        mean            n 
+   0.9030914 2879.0000000 
+
+$`50+`
+        mean            n 
+   0.9366013 1530.0000000 
+
+
+=== SBA_Portion threshold effects ===
+$`[0,0.5]`
+        mean            n 
+7.366687e-01 1.820900e+04 
+
+$`(0.5,0.6]`
+      mean          n 
+  0.883871 155.000000 
+
+$`(0.6,0.7]`
+       mean           n 
+  0.9380665 662.0000000 
+
+$`(0.7,0.75]`
+        mean            n 
+8.730984e-01 1.018900e+04 
+
+$`(0.75,0.8]`
+        mean            n 
+   0.9226228 4743.0000000 
+
+$`(0.8,0.85]`
+        mean            n 
+   0.7742197 7401.0000000 
+
+$`(0.85,0.9]`
+        mean            n 
+   0.8886941 4564.0000000 
+
+$`(0.9,1]`
+        mean            n 
+   0.9894141 4062.0000000 
+
+
+=== Interaction check: HighSBA x TermBucket ===
+      0-5yr     5-7yr    7-10yr   10-20yr   20-30yr 30yr+
+0 0.5616087 0.8958412 0.8769461 0.9070700 0.9633261   1.0
+1 0.7213616 0.8829676 0.8925299 0.9758842 0.9706840   0.5
+
+=== LoanSizeRatio distribution ===
+          0%          25%          50%          75%          90%          95% 
+8.388535e-02 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.012058e+00 
+         99%         100% 
+1.456424e+00 5.000000e+04 
+$`[0,0.9]`
+        mean            n 
+   0.6747998 7992.0000000 
+
+$`(0.9,0.95]`
+       mean           n 
+  0.7381974 233.0000000 
+
+$`(0.95,1]`
+        mean            n 
+8.542451e-01 3.879800e+04 
+
+$`(1,1.05]`
+        mean            n 
+   0.8264621 1043.0000000 
+
+$`(1.05,1.1]`
+       mean           n 
+  0.8727679 448.0000000 
+
+$`(1.1,Inf]`
+        mean            n 
+   0.8755948 1471.0000000 
+
+
+=== Interaction check: LowDoc x NewExist_f ===
+             Existing       New
+         NA 0.7037037 0.5569620
+0        NA 0.9384615 0.8181818
+A        NA 0.6363636 0.7333333
+C        NA 1.0000000 0.8666667
+N 0.9814815 0.8190250 0.7957586
+R        NA 0.0000000 0.8000000
+S        NA 0.5454545 0.8571429
+Y 1.0000000 0.9310129 0.8943805
+
+=== Interaction check: IsFranchise x NewExist_f ===
+               Existing       New
+No  0.9827586 0.8262850 0.8131216
+Yes 1.0000000 0.8949302 0.8313774
+
+=== Interaction check: SameBankState x TermBucket ===
+      0-5yr     5-7yr    7-10yr   10-20yr   20-30yr 30yr+
+0 0.4634146 0.8664110 0.8407486 0.9037783 0.9611289   0.5
+1 0.7760585 0.9248174 0.9155512 0.9686959 0.9693934   1.0
+
+=== log(DisbursementGross) binned default rates ===
+Error in seq.int(rx[1L], rx[2L], length.out = nb) : 
+  'from' must be a finite number
+Calls: cut -> cut.default
+Execution halted

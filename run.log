@@ -1,0 +1,39 @@
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:data.table’:
+
+    between, first, last
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+[1] "Number of rows removed: 15"
+Warning message:
+There was 1 warning in `mutate()`.
+ℹ In argument: `ApprovalFY = as.numeric(as.character(ApprovalFY))`.
+Caused by warning:
+! NAs introduced by coercion 
+Warning messages:
+1: glm.fit: algorithm did not converge 
+2: glm.fit: fitted probabilities numerically 0 or 1 occurred 
+Loading required package: ggplot2
+Loading required package: lattice
+Type 'citation("pROC")' for a citation.
+
+Attaching package: ‘pROC’
+
+The following objects are masked from ‘package:stats’:
+
+    cov, smooth, var
+
+Accuracy: 0.9329
+No Information Rate: 0.8263
+AUC: 0.9521
+Warning message:
+package ‘ggplot2’ was built under R version 4.4.3 
