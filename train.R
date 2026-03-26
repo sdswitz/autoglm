@@ -32,6 +32,8 @@ sba <- sba %>% mutate(
   Term2 = Term^2,
   Term3 = Term^3,
   Term4 = Term^4,
+  SqrtTerm = sqrt(Term),
+  LogTerm = log(Term + 1),
   HighSBA = as.integer(SBA_Portion > 0.75),
   ShortTerm = as.integer(Term <= 36),
   DisbMonth = factor(format(as.Date(DisbursementDate, format="%d-%b-%y"), "%m")),
@@ -67,7 +69,8 @@ mod1 <- glm(PaidInFull ~ NewExist_f + LowDoc + IsRevLine + UrbanRural_f + NoEmp 
               Recession:TermBucket +
               Pre1989:TermBucket +
               SameBankState:GFC +
-              ShortTerm + ShortTerm:GFC + ShortTerm:SBA_Portion,
+              ShortTerm + ShortTerm:GFC + ShortTerm:SBA_Portion +
+              SqrtTerm + LogTerm,
             data = sba_train, family = "binomial")
 
 # Predictions and evaluation (do not modify evaluate function — it lives in prepare.R)
