@@ -35,8 +35,8 @@ sba <- sba %>% mutate(
   HighSBA = as.integer(SBA_Portion > 0.75),
   ShortTerm = as.integer(Term <= 36),
   DisbMonth = factor(format(as.Date(DisbursementDate, format="%d-%b-%y"), "%m")),
-  TermBucket = cut(Term, breaks = c(0, 12, 24, 36, 48, 60, 72, 84, 96, 108, 120, 180, 240, 360, Inf),
-                   labels = c("0-1yr", "1-2yr", "2-3yr", "3-4yr", "4-5yr", "5-6yr", "6-7yr", "7-8yr", "8-9yr", "9-10yr", "10-15yr", "15-20yr", "20-30yr", "30yr+"),
+  TermBucket = cut(Term, breaks = c(0, 12, 24, 36, 48, 60, 72, 84, 96, 108, 120, 144, 180, 240, 360, Inf),
+                   labels = c("0-1yr", "1-2yr", "2-3yr", "3-4yr", "4-5yr", "5-6yr", "6-7yr", "7-8yr", "8-9yr", "9-10yr", "10-12yr", "12-15yr", "15-20yr", "20-30yr", "30yr+"),
                    include.lowest = TRUE)
 )
 
