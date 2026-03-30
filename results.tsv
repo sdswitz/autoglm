@@ -126,3 +126,4 @@ f652ff7	0.9341	0.9526	discard	add LoanSizeRatio:ShortTerm — regression
 6e134e5	0.9339	0.9525	discard	add ApprovalFY^2:Term and ApprovalFY:Term^2 — regression
 99004a9	0.9346	0.9527	keep	add sqrt(Term) and log(Term) transforms — marginal gain
 658426d	0.9329	0.9521	discard	ABLATION: remove CreateJob/RetainedJob deps (HasJobs TotalJobs and interactions) — cost 0.0017 accuracy
+d096d41	0.9330	0.9529	discard	add IsRevLine:GFC — regression
